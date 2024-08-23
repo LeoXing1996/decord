@@ -1,0 +1,18 @@
+torch.Size([1, 10, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170229.mp4',)], 'start_idx': tensor([0]), 'end_idx': tensor([10]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 10, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170229.mp4',)], 'start_idx': tensor([10]), 'end_idx': tensor([20]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 10, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170229.mp4',)], 'start_idx': tensor([20]), 'end_idx': tensor([30]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 10, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170229.mp4',)], 'start_idx': tensor([30]), 'end_idx': tensor([40]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 2, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170229.mp4',)], 'start_idx': tensor([40]), 'end_idx': tensor([42]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 10, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170233.mp4',)], 'start_idx': tensor([0]), 'end_idx': tensor([10]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 10, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170233.mp4',)], 'start_idx': tensor([10]), 'end_idx': tensor([20]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 10, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170233.mp4',)], 'start_idx': tensor([20]), 'end_idx': tensor([30]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
+torch.Size([1, 1, 512, 512, 3])
+{'video_name': [('anime_cases/飞书20240809-170233.mp4',)], 'start_idx': tensor([30]), 'end_idx': tensor([31]), 'dataset_meta': {'rank': tensor([2]), 'world_size': tensor([4]), 'num_worker': tensor([0]), 'worker_id': tensor([0]), 'mod': tensor([4]), 'shift': tensor([2])}, 'is_error': tensor([False])}
