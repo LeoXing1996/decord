@@ -108,7 +108,7 @@ vaapi
 2. Clone this Repo **with submodules**
 
 ```bash
-git clone --recursive https://github.com/dmlc/decord
+git clone --recursive https://github.com/LeoXing1996/decord
 ```
 
 3. Start to compile!
