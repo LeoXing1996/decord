@@ -17,13 +17,158 @@
 
 `Decord` is also able to decode audio from both video and audio files. One can slice video and audio together to get a synchronized result; hence providing a one-stop solution for both video and audio decoding.
 
+## What's Difference with Original Repo
+
+We change the some cpp code according to this [PR](https://github.com/dmlc/decord/pull/309) and this [issue comment](https://github.com/dmlc/decord/issues/122#issuecomment-760903908).
+
+We test the modification with following system environment, and cannot ensure it works on other environments.
+
+```bash
+# Operation System
+cat /etc/os-release
+
+# Output
+NAME="CentOS Linux"
+VERSION="7 (Core)"
+ID="centos"
+ID_LIKE="rhel fedora"
+VERSION_ID="7"
+PRETTY_NAME="CentOS Linux 7 (Core)"
+ANSI_COLOR="0;31"
+CPE_NAME="cpe:/o:centos:centos:7"
+HOME_URL="https://www.centos.org/"
+BUG_REPORT_URL="https://bugs.centos.org/"
+
+CENTOS_MANTISBT_PROJECT="CentOS-7"
+CENTOS_MANTISBT_PROJECT_VERSION="7"
+REDHAT_SUPPORT_PRODUCT="centos"
+REDHAT_SUPPORT_PRODUCT_VERSION="7"
+
+# GCC
+gcc --version
+
+# Output
+gcc (GCC) 10.2.0
+Copyright © 2020 Free Software Foundation, Inc.
+本程序是自由软件；请参看源代码的版权声明。本软件没有任何担保；
+包括没有适销性和某一专用目的下的适用性担保。
+
+# Cmake
+cmake --version
+
+# Output
+cmake version 3.25.1
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+# NVCC
+nvcc -V
+
+# Output
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2022 NVIDIA Corporation
+Built on Wed_Sep_21_10:33:58_PDT_2022
+Cuda compilation tools, release 11.8, V11.8.89
+Build cuda_11.8.r11.8/compiler.31833905_0
+
+# Python
+python --version
+
+# Output
+Python 3.10.14
+```
+
+## How to Compile GPU version **without sudo**?
+
+1. Install FFMPEG via `conda-forge`
+
+```bash
+conda install -c conda-forge ffmpeg
+
+# check installation
+ffmpeg -hwaccels
+
+# Outputs
+ffmpeg version 5.1.2 Copyright (c) 2000-2022 the FFmpeg developers
+  built with gcc 11.3.0 (conda-forge gcc 11.3.0-19)
+  configuration: --prefix=/home/conda/feedstock_root/build_artifacts/ffmpeg_1674566204550/ ....
+  libavutil      57. 28.100 / 57. 28.100
+  libavcodec     59. 37.100 / 59. 37.100
+  libavformat    59. 27.100 / 59. 27.100
+  libavdevice    59.  7.100 / 59.  7.100
+  libavfilter     8. 44.100 /  8. 44.100
+  libswscale      6.  7.100 /  6.  7.100
+  libswresample   4.  7.100 /  4.  7.100
+  libpostproc    56.  6.100 / 56.  6.100
+Hardware acceleration methods:
+cuda
+vaapi
+```
+
+2. Clone this Repo **with submodules**
+
+```bash
+git clone --recursive https://github.com/dmlc/decord
+```
+
+3. Start to compile!
+
+```bash
+cd decord
+mkdir build && cd build
+cmake .. -DUSE_CUDA=ON -DCMAKE_BUILD_TYPE=Release -DFFMPEG_DIR=${CONDA_PREFIX} -DUSE_CUDA=YOU_CUDA_HOME
+make
+```
+
+4. Install Python Bindings
+
+```bash
+cd ../python
+python setup.py install --user
+```
+
+5. Test!
+
+```python
+import time
+from decord import VideoReader, gpu
+
+frame_list = []
+with open("YOU_VIDEO.mp4", "rb") as f:
+    vr = VideoReader(f, ctx=gpu(0))
+    s_ = time.time()
+
+    for s in range(0, len(vr), 100):
+        e = min(s + 100, len(vr))
+        frame = vr.get_batch([i for i in range(s, e)]).asnumpy()
+        frame_list.append(frame)
+        print(s, e, frame.shape)
+
+    e_ = time.time()
+
+print(f'Total time: {e_ - s_}')
+```
+
 Table of contents
 =================
 
-- [Benchmark](#preliminary-benchmark)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Bridge for Deep Learning frameworks](#bridges-for-deep-learning-frameworks)
+- [Decord](#decord)
+  - [What's Difference with Original Repo](#whats-difference-with-original-repo)
+  - [How to Compile GPU version **without sudo**?](#how-to-compile-gpu-version-without-sudo)
+- [Table of contents](#table-of-contents)
+  - [Preliminary benchmark](#preliminary-benchmark)
+  - [Installation](#installation)
+    - [Install via pip](#install-via-pip)
+    - [Install from source](#install-from-source)
+      - [Linux](#linux)
+      - [Mac OS](#mac-os)
+      - [Windows](#windows)
+  - [Usage](#usage)
+    - [VideoReader](#videoreader)
+    - [VideoLoader](#videoloader)
+    - [AudioReader](#audioreader)
+    - [AVReader](#avreader)
+  - [Bridges for deep learning frameworks:](#bridges-for-deep-learning-frameworks)
 
 ## Preliminary benchmark
 
